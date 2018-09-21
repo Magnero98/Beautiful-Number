@@ -3,42 +3,41 @@ import java.util.Scanner;
 public class Main {
 	public Scanner input = new Scanner(System.in);
 	
-	public double calcArithmeticSequence(int n)
+	public int calcTotalMemory()
 	{
-		return (n / 2.0) * (2.0 + (n - 1.0));
-	}
-	
-	public boolean isBeautiful(int number)
-	{
-		int counter = 1;
+		int apps, totalMemory = 0;
 		
-		while(true)
+		apps = input.nextInt();
+		input.nextLine();
+		
+		for(int j = 0; j < apps; j++)
 		{
-			if(calcArithmeticSequence(counter) == number)
-			{
-				return true;
-			}
-			else if(calcArithmeticSequence(counter) < number)
-			{
-				System.out.println(" -> " + calcArithmeticSequence(counter));
-				counter++;
-				continue;
-			}
-			else
-			{
-				return false;
-			}
+			totalMemory += input.nextInt();
+			input.nextLine();
 		}
+		
+		return totalMemory;
 	}
 	
 	public Main()
 	{	
-		for(int j = 1; j <= 100; j++)
+		int cases, totalMemory;
+		
+		cases = input.nextInt();
+		input.nextLine();
+		
+		for(int i = 1; i <= cases; i++)
 		{
-			if(isBeautiful(j))
-				System.out.println(j + " : YES");
-			else
-				System.out.println(j + " : NO");
+			totalMemory = calcTotalMemory();
+			
+			if(totalMemory <= 16000)
+				System.out.println("Case #" + i + ": 16GB");
+			else if(totalMemory <= 32000)
+				System.out.println("Case #" + i + ": 32GB");
+			else if(totalMemory <= 64000)
+				System.out.println("Case #" + i + ": 64GB");
+			else if(totalMemory <= 128000)
+				System.out.println("Case #" + i + ": 128GB");
 		}
 	}
 	
