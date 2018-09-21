@@ -1,44 +1,54 @@
 import java.util.Scanner;
+import java.math.*;
 
 public class Main {
 	public Scanner input = new Scanner(System.in);
 	
-	public int calcTotalMemory()
+	public class Distance
 	{
-		int apps, totalMemory = 0;
+		int vertical;
+		int horizontal;
 		
-		apps = input.nextInt();
-		input.nextLine();
-		
-		for(int j = 0; j < apps; j++)
+		public Distance(int _vertical, int _horizontal)
 		{
-			totalMemory += input.nextInt();
-			input.nextLine();
+			this.vertical = _vertical;
+			this.horizontal = _horizontal;
+		}
+	}
+	
+	private Distance calcMovement(String command)
+	{
+		Distance _distance = new Distance(0, 0);
+		
+		for(int i = 0; i < command.length(); i++)
+		{
+			if(command.charAt(i) == 'N')
+				_distance.vertical++;
+			else if(command.charAt(i) == 'S')
+				_distance.vertical--;
+			else if(command.charAt(i) == 'E')
+				_distance.horizontal++;
+			else if(command.charAt(i) == 'W')
+				_distance.horizontal--;
 		}
 		
-		return totalMemory;
+		return _distance;
+	}
+	
+	private int calcTheDistance(Distance _distance)
+	{
+		return Math.abs(_distance.vertical) + Math.abs(_distance.horizontal);
 	}
 	
 	public Main()
 	{	
-		int cases, totalMemory;
+		Distance _distance;
+		String command;
 		
-		cases = input.nextInt();
-		input.nextLine();
+		command = input.nextLine();
 		
-		for(int i = 1; i <= cases; i++)
-		{
-			totalMemory = calcTotalMemory();
-			
-			if(totalMemory <= 16000)
-				System.out.println("Case #" + i + ": 16GB");
-			else if(totalMemory <= 32000)
-				System.out.println("Case #" + i + ": 32GB");
-			else if(totalMemory <= 64000)
-				System.out.println("Case #" + i + ": 64GB");
-			else if(totalMemory <= 128000)
-				System.out.println("Case #" + i + ": 128GB");
-		}
+		_distance = calcMovement(command);
+		System.out.println(calcTheDistance(_distance));
 	}
 	
 	public static void main(String[] args) 
